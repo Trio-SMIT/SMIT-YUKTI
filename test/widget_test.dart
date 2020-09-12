@@ -14,7 +14,11 @@ import 'package:yukti/screens/homePage.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+<<<<<<< HEAD
     await tester.pumpWidget(HomePage());
+=======
+    await tester.pumpWidget(Yukti());
+>>>>>>> 900ef57805d8842371f6b309a9d0a917976d2e2c
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
