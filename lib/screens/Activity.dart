@@ -17,11 +17,11 @@ class _ActivityState extends State<Activity> {
   String _calories = "Unknown";
 
   String _stepCountValue = 'Unknown';
-  StreamSubscription<StepCount> _subscription;
+
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
 
-  String _status = '?', _steps = '?';
+  String _status = '', _steps = '';
 
   double _numberx;
   double _convert;
@@ -71,38 +71,42 @@ class _ActivityState extends State<Activity> {
   }
 
   void onStepCount(StepCount stepCountValue) {
-    print(stepCountValue);
-    setState(() {
-      _steps = stepCountValue.steps.toString();
-    });
+    try {
+      print(stepCountValue);
+      setState(() {
+        _steps = stepCountValue.steps.toString();
+      });
 
-    setState(() {
-      _stepCountValue = "${stepCountValue.steps}";
-    });
+      setState(() {
+        _stepCountValue = "${stepCountValue.steps}";
+      });
 
-    var dist = stepCountValue.steps;
-    double y = (dist + .0);
+      var dist = stepCountValue.steps;
+      double y = (dist + .0);
 
-    setState(() {
-      _numberx = y;
-    });
+      setState(() {
+        _numberx = y;
+      });
 
-    var long3 = (_numberx);
-    long3 = num.parse(y.toStringAsFixed(2));
-    var long4 = (long3 / 10000);
+      var long3 = (_numberx);
+      long3 = num.parse(y.toStringAsFixed(2));
+      var long4 = (long3 / 10000);
 
-    int decimals = 1;
-    int fac = pow(10, decimals);
-    double d = long4;
-    d = (d * fac).round() / fac;
-    print("d: $d");
+      int decimals = 1;
+      int fac = pow(10, decimals);
+      double d = long4;
+      d = (d * fac).round() / fac;
+      print("d: $d");
 
-    getDistanceRun(_numberx);
+      getDistanceRun(_numberx);
 
-    setState(() {
-      _convert = d;
-      print(_convert);
-    });
+      setState(() {
+        _convert = d;
+        print(_convert);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   //function to determine the distance run in kilometers using number of steps
@@ -128,6 +132,14 @@ class _ActivityState extends State<Activity> {
       _calories = "$calories";
       //print(_calories);
     });
+  }
+
+  Container returnStatus() {
+    return Container(
+      child: _status == 'walking'
+          ? Image.asset('assets/images/running.gif')
+          : Image.asset('assets/images/standing.gif'),
+    );
   }
 
   @override
@@ -198,9 +210,9 @@ class _ActivityState extends State<Activity> {
                 ),
                 percent: int.parse(_steps) / 100,
                 //percent: _convert,
-                footer: new Text(
+                footer: Text(
                   "Steps:  $_stepCountValue",
-                  style: new TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12.0,
                       color: Colors.purple),
@@ -220,8 +232,8 @@ class _ActivityState extends State<Activity> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  new Container(
-                    child: new Card(
+                  Container(
+                    child: Card(
                       child: Container(
                         height: 80.0,
                         width: 80.0,
@@ -245,8 +257,8 @@ class _ActivityState extends State<Activity> {
                   VerticalDivider(
                     width: 20.0,
                   ),
-                  new Container(
-                    child: new Card(
+                  Container(
+                    child: Card(
                       child: Container(
                         height: 80.0,
                         width: 80.0,
@@ -264,8 +276,8 @@ class _ActivityState extends State<Activity> {
                   VerticalDivider(
                     width: 20.0,
                   ),
-                  new Container(
-                    child: new Card(
+                  Container(
+                    child: Card(
                       child: Container(
                         height: 80.0,
                         width: 80.0,
@@ -294,14 +306,14 @@ class _ActivityState extends State<Activity> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  new Container(
+                  Container(
                     padding: EdgeInsets.only(left: 40.0),
-                    child: new Card(
+                    child: Card(
                       child: Container(
                         child: Text(
                           "$_km Km",
                           textAlign: TextAlign.right,
-                          style: new TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.0,
                               color: Colors.white),
@@ -313,14 +325,14 @@ class _ActivityState extends State<Activity> {
                   VerticalDivider(
                     width: 20.0,
                   ),
-                  new Container(
+                  Container(
                     padding: EdgeInsets.only(left: 10.0),
-                    child: new Card(
+                    child: Card(
                       child: Container(
                         child: Text(
                           "$_calories kCal",
                           textAlign: TextAlign.right,
-                          style: new TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.0,
                               color: Colors.white),
@@ -332,14 +344,14 @@ class _ActivityState extends State<Activity> {
                   VerticalDivider(
                     width: 5.0,
                   ),
-                  new Container(
+                  Container(
                     padding: EdgeInsets.only(left: 10.0),
-                    child: new Card(
+                    child: Card(
                       child: Container(
                         child: Text(
                           "$_stepCountValue Steps",
                           textAlign: TextAlign.right,
-                          style: new TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.0,
                               color: Colors.white),
@@ -351,9 +363,7 @@ class _ActivityState extends State<Activity> {
                 ],
               ),
             ),
-            _status == 'walking'
-                ? Image.asset('assets/images/running.gif')
-                : Image.asset('assets/images/standing.gif'),
+            // returnStatus(),
           ],
         ),
       ),
