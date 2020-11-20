@@ -85,8 +85,8 @@ class _NavigateState extends State<Navigate> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(5.0),
-                          topLeft: Radius.circular(5.0))),
+                          topRight: Radius.circular(30.0),
+                          topLeft: Radius.circular(30.0))),
                   height: 50,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -159,7 +159,7 @@ class _NavigateState extends State<Navigate> {
             : Container(
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width,
+                height: 1,
               ),
         body: PageView(
           controller: _myPage,
@@ -173,6 +173,9 @@ class _NavigateState extends State<Navigate> {
           physics: BouncingScrollPhysics(),
         ),
         floatingActionButton: FabCircularMenu(
+            animationCurve: Curves.linear,
+            animationDuration: Duration(milliseconds: 100),
+            ringDiameter: 350,
             ringWidth: 80.0,
             fabOpenIcon: Icon(Icons.event),
             alignment: Alignment.bottomCenter,

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -51,9 +50,6 @@ class _ActivityState extends State<Activity> {
   }
 
   void setUpPedometer() {
-    // _subscription = Pedometer.stepCountStream.listen(_onData,
-    //     onError: _onError, onDone: _onDone, cancelOnError: true);
-
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
     _pedestrianStatusStream
         .listen(onPedestrianStatusChanged)
@@ -61,6 +57,7 @@ class _ActivityState extends State<Activity> {
 
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen(onStepCount).onError(onStepCountError);
+    if (!mounted) return;
   }
 
   void onStepCountError(error) {
@@ -174,12 +171,12 @@ class _ActivityState extends State<Activity> {
                     topLeft: Radius.circular(27.0),
                     topRight: Radius.circular(27.0),
                   )),
-              child: new CircularPercentIndicator(
+              child: CircularPercentIndicator(
                 radius: 200.0,
                 lineWidth: 13.0,
                 animation: true,
                 center: Container(
-                  child: new Row(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
@@ -196,7 +193,7 @@ class _ActivityState extends State<Activity> {
                         //color: Colors.orange,
                         child: Text(
                           // '$_stepCountValue',
-                          '$_steps',
+                          '$_steps / 10000',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.0,
@@ -208,7 +205,7 @@ class _ActivityState extends State<Activity> {
                     ],
                   ),
                 ),
-                percent: int.parse(_steps) / 100,
+                percent: int.parse(_steps) / 10000,
                 //percent: _convert,
                 footer: Text(
                   "Steps:  $_stepCountValue",
