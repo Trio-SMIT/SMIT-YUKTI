@@ -9,8 +9,7 @@ import 'package:yukti/components/splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  email = prefs.get('email');
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: 'splash',

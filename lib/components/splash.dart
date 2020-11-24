@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:yukti/data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -9,12 +10,14 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   startTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.get('email');
     var _duration = Duration(seconds: 2);
     return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed(email == '' ? 'login' : 'nav');
+    Navigator.of(context).pushReplacementNamed(email.isEmpty ? 'login' : 'nav');
   }
 
   @override
