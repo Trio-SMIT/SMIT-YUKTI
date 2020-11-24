@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
-import 'screens/reg_otp.dart';
-import 'screens/pass_acc.dart';
 import 'Navigation.dart';
+import 'screens/Login.dart';
+import 'data.dart';
+import 'package:yukti/screens/About.dart';
+import 'package:yukti/screens/ChangeData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yukti/components/splash.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  email = prefs.get('email');
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: 'nav',
-    // initialRoute: 'login_screen',
-    // initialRoute: 'reg_screen',
+    initialRoute: 'splash',
+    // initialRoute: 'login',
     routes: {
-      'reg_screen': (context) => Reg_OTP('Reg No./EMP ID', 'otp_screen',
-          'i already have an account!', '', '', 'SIGNUP', 'login_screen'),
-      'otp_screen': (context) => Reg_OTP('OTP', 'pass_screen', 'Resend OTP',
-          'An OTP was sent to ', 'your email !', "VERIFY", ''),
-      'pass_screen': (context) => Pass_Acc(
-          'Create Password',
-          'Confirm Password',
-          'Next',
-          'I already have an account',
-          '',
-          'Acc_screen',
-          'login_screen',
-          ''),
-      'Acc_screen': (context) =>
-          Pass_Acc('First Name', 'Last Name', 'Done', '', '', '', '', ''),
-      'login_screen': (context) => Pass_Acc(
-          'Email',
-          'Password',
-          'Login',
-          'Forgot password!',
-          "i don't have account",
-          '',
-          'reg_screen',
-          'reg_screen'),
+      'login': (context) => Login(),
       'nav': (context) => Navigate(),
+      'about': (context) => About(),
+      'changeData': (context) => ChangeData(),
+      'splash': (context) => Splash(),
     },
   ));
 }
