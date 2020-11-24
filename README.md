@@ -1,16 +1,10 @@
-# yukti
+# YUKTI APP
 
-A new Flutter project.
+Yukti is a fitness app for SMIT which keeps track of user's steps record, calorie burnt
+and the distance covered by the user.
+It also displays the ongoing events as well as the events associated with any particular sports
+which are organised in SMIT separately.
+It also have many sports related videos for which user can directly play it in the app itself.
+Also user can update their personal info through the settings.
+Login is based on otp verification which is very handy.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
