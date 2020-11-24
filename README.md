@@ -16,3 +16,10 @@ which are organised in SMIT separately.
 # Screenshots
 
 <img src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/Spalsh.jpeg" height="500" style="margin:10px"><img style="margin:10px" src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/Home.jpeg" height="500" style="margin:10px"><img style="margin:10px" src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/Activity.jpeg" height="500" style="margin:10px"><img src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/Video.jpeg" height="500" style="margin:10px"><img src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/Settings.jpeg" height="500" style="margin:10px"><img src="https://raw.githubusercontent.com/Trio-SMIT/SMIT-YUKTI/master/screenshots/PlayVid.jpeg" height="500" style="margin:10px">
+
+
+# In Action
+
+`Watch the video to see the app in action`
+
+[![Watch the video](https://img.youtube.com/vi/yJeB8zQ3Q6g/hqdefault.jpg)](https://youtu.be/yJeB8zQ3Q6g)
