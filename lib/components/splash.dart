@@ -11,7 +11,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   startTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    email = prefs.get('email');
+    email = prefs.get('email') != null ? prefs.get('email') : '';
     var _duration = Duration(seconds: 2);
     return Timer(_duration, navigationPage);
   }
