@@ -7,8 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlayerApp extends StatelessWidget {
-  YoutubePlayerApp(this.link);
+  YoutubePlayerApp(this.link, this.title, this.creator);
   final link;
+  final title;
+  final creator;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,15 +32,17 @@ class YoutubePlayerApp extends StatelessWidget {
           color: Colors.blueAccent,
         ),
       ),
-      home: MyHomePage(this.link),
+      home: MyHomePage(this.link, this.title, this.creator),
     );
   }
 }
 
 /// Homepage
 class MyHomePage extends StatefulWidget {
-  MyHomePage(this.link);
+  MyHomePage(this.link, this.title, this.creator);
   final link;
+  final title;
+  final creator;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -142,14 +146,14 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       builder: (context, player) => Scaffold(
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Colors.black,
         key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text(
-            'Youtube Player Flutter',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     'Youtube P',
+        //     style: TextStyle(color: Colors.white),
+        //   ),
+        // ),
         body: ListView(
           children: [
             player,
@@ -163,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Expanded(
                         child: Container(
-                          color: Colors.cyanAccent,
+                          color: Colors.white,
                           child: IconButton(
                             icon: Icon(
                               _controller.value.isPlaying
@@ -184,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Expanded(
                         child: Container(
-                          color: Colors.cyanAccent,
+                          color: Colors.white,
                           child: FullScreenButton(
                             controller: _controller,
                             color: Colors.blueAccent,
@@ -196,6 +200,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   _space,
                 ],
               ),
+            ),
+            SizedBox(
+              height: 25.0,
+            ),
+            Card(
+              child: ListTile(
+                title: Text(
+                  widget.title,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                ),
+                trailing: Text(
+                  'by ${widget.creator}',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30.0,
             ),
           ],
         ),

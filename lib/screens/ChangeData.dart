@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:yukti/data.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-int newAge = age;
-int newWt = weight;
-bool isSpin = false;
 
 class ChangeData extends StatefulWidget {
   @override
@@ -21,81 +16,78 @@ class _ChangeDataState extends State<ChangeData> {
     ]);
     return SafeArea(
       child: Scaffold(
-        body: ModalProgressHUD(
-          inAsyncCall: isSpin,
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 25.0,
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 25.0,
+                ),
+                Container(
+                  height: 50.0,
+                  margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0x550000FF),
+                          blurRadius: 5.0,
+                          spreadRadius: 1.0,
+                          offset: Offset(2, 2))
+                    ],
                   ),
-                  Container(
-                    height: 50.0,
-                    margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color(0x550000FF),
-                            blurRadius: 5.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(2, 2))
-                      ],
-                    ),
-                    child: Text(
-                      'Change Data',
-                      style: TextStyle(
-                          fontSize: 23.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                    ),
+                  child: Text(
+                    'Change Data',
+                    style: TextStyle(
+                        fontSize: 23.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: EdgeInsets.all(30),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                child: Center(
-                                  child: Text(
-                                    'Name : $name',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: EdgeInsets.all(30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Center(
+                                child: Text(
+                                  'Name : $name',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
                                 ),
                               ),
-                              SizedBox(
-                                height: 50.0,
-                              ),
-                              ChangeDataField(task: 'Age'),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              SizedBox(
-                                height: 50.0,
-                              ),
-                              ChangeDataField(task: 'Weight'),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: 50.0,
+                            ),
+                            ChangeDataField(task: 'Age'),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            SizedBox(
+                              height: 50.0,
+                            ),
+                            ChangeDataField(task: 'Weight'),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -112,6 +104,8 @@ class ChangeDataField extends StatefulWidget {
 }
 
 class _ChangeDataFieldState extends State<ChangeDataField> {
+  int newAge = age;
+  int newWt = weight;
   final form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -133,6 +127,21 @@ class _ChangeDataFieldState extends State<ChangeDataField> {
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
+                  onChanged: (value) {
+                    if (widget.task == 'Weight') {
+                      try {
+                        newWt = int.parse(value);
+                      } catch (e) {
+                        print(e);
+                      }
+                    } else {
+                      try {
+                        newAge = int.parse(value);
+                      } catch (e) {
+                        print(e);
+                      }
+                    }
+                  },
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                       hintText: "${widget.task}",
@@ -140,7 +149,7 @@ class _ChangeDataFieldState extends State<ChangeDataField> {
                       border: InputBorder.none),
                   validator: (value) {
                     try {
-                      String pattern = r'^[0-9]{1,3}';
+                      String pattern = r'(^[0-9]{1,3})';
                       RegExp regExp = RegExp(pattern);
                       if (value.isEmpty) {
                         return 'Please Enter ${widget.task}';
@@ -181,18 +190,13 @@ class _ChangeDataFieldState extends State<ChangeDataField> {
             child: Center(
               child: FlatButton(
                 onPressed: () async {
-                  final form1 = form.currentState;
-                  if (form1.validate()) {
+                  if (form.currentState.validate()) {
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Done'),
                       ),
                     );
-                    setState(() {
-                      isSpin = true;
-                    });
-                    int x = await updateUserData(newAge, newWt);
-                    isSpin = false;
+                    updateUserData(newAge, newWt);
                     Future.delayed(Duration(seconds: 1), () {
                       Navigator.pop(context);
                     });

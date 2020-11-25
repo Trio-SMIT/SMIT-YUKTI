@@ -47,8 +47,9 @@ class _VideosState extends State<Videos> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => YoutubePlayerApp(
-                            _links[i]["video_link"],
-                          ),
+                              _links[i]["video_link"],
+                              _links[i]["title"],
+                              _links[i]["creater"]),
                         ),
                       );
                     },
